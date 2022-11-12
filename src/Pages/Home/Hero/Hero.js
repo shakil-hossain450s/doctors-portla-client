@@ -3,16 +3,16 @@ import treatment from "../../../assets/images/treatment.png";
 
 const Hero = () => {
     return (
-        <section className='w-3/4 mx-auto mt-28'>
+        <section className='lg:w-3/4 lg:mx-auto mx-4 lg:mt-28 mt-20'>
             <div className="hero">
-                <div className="hero-content flex-col gap-20 lg:flex-row">
+                <div className="hero-content flex-col lg:gap-20 gap-8 lg:flex-row">
                     <img
                         src={treatment}
-                        className="rounded-lg lg:w-5/12  shadow-2xl"
+                        className="rounded-lg lg:w-5/12 shadow-xl border p-1"
                         alt=""
                     />
                     <div>
-                        <h1 className="text-5xl font-bold">
+                        <h1 className="text-4xl font-bold">
                             Exceptional Dental Care, on Your Terms
                         </h1>
                         <p className="py-6">
