@@ -1,6 +1,7 @@
 import React from 'react';
 import './Banner.css';
 import chair from "../../../assets/images/chair.png";
+import PrimaryButton from '../../../components/PrimaryButton/PrimaryButton';
 
 const Banner = () => {
     return (
@@ -12,10 +13,7 @@ const Banner = () => {
                     <p className="py-6">
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the
                     </p>
-                    <button
-                        className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white">
-                        Get Started
-                    </button>
+                    <PrimaryButton>Getting Started</PrimaryButton>
                 </div>
             </div>
         </div>
