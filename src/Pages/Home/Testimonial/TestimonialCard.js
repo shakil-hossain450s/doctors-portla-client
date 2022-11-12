@@ -1,7 +1,7 @@
 import React from 'react';
 
-const TestimonialCard = ({ data }) => {
-    const { name, image, description, address } = data;
+const TestimonialCard = ({ review }) => {
+    const { name, image, description, address } = review;
     return (
         <div className="card bg-base-100 shadow-xl border">
             <div className="card-body">

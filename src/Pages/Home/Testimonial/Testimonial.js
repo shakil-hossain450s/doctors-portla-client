@@ -7,7 +7,7 @@ import TestimonialCard from './TestimonialCard';
 
 const Testimonial = () => {
 
-    const testimonialData = [
+    const reviews = [
         {
             id: 1,
             image: person1,
@@ -39,15 +39,15 @@ const Testimonial = () => {
                     <p className='lg:text-3xl text-2xl font-medium'>What Our Patients Says</p>
                 </div>
                 <div>
-                    <img className='lg:w-[192px] w-[150px]' src={quote} alt="" />
+                    <img className='lg:w-48 w-24' src={quote} alt="" />
                 </div>
             </div>
             <div
-                className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-5 lg:w-11/12 lg:mx-auto mx-2'>
+                className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-3 mb-5 lg:w-11/12 lg:mx-auto mx-2'>
                 {
-                    testimonialData.map(data => <TestimonialCard
-                        key={data.id}
-                        data={data}
+                    reviews.map(review => <TestimonialCard
+                        key={review.id}
+                        review={review}
                     ></TestimonialCard>)
                 }
             </div>
