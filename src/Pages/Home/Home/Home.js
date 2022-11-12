@@ -4,6 +4,7 @@ import BannerCards from '../BannerCard/BannerCards';
 import Hero from '../Hero/Hero';
 import MakeAppointment from '../MakeAppointment/MakeAppointment';
 import ServiceCards from '../ServiceCards.js/ServiceCards';
+import Testimonial from '../Testimonial/Testimonial';
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
             <ServiceCards></ServiceCards>
             <Hero></Hero>
             <MakeAppointment></MakeAppointment>
+            <Testimonial></Testimonial>
         </div>
     );
 };
