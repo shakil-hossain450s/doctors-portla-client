@@ -1,8 +1,9 @@
+import { format } from 'date-fns';
 import React from 'react';
 
-const BookingModal = ({ treatment }) => {
+const BookingModal = ({ treatment, selectedDate }) => {
 
-    const { name } = treatment;
+    const { name, slots } = treatment;
 
     return (
         <>
@@ -20,24 +21,25 @@ const BookingModal = ({ treatment }) => {
                             <input
                                 type="text"
                                 name=""
-                                placeholder='Date'
-                                className='bg-base-100 pl-3 py-2 rounded-md border-2 border-gray-300 w-full'
+                                value={format(selectedDate, "PP")}
+                                disabled
+                                className='bg-gray-100 font-medium pl-3 py-2 rounded-md border border-gray-200 w-full'
                             />
                         </div>
                         <div className='my-3 flex justify-center'>
-                            <input
-                                type="text"
-                                name=""
-                                placeholder='Time'
-                                className='bg-base-100 pl-3 py-2 rounded-md border-2 border-gray-300 w-full'
-                            />
+                            <select className='bg-gray-100 font-medium pl-3 py-2 rounded-md border border-gray-200 w-full' name="" id="">
+                                <option disabled selected>Pick your Time</option>
+                                {
+                                    slots.map(slot => <option value={slot}>{slot}</option>)
+                                }
+                            </select>
                         </div>
                         <div className='my-3 flex justify-center'>
                             <input
                                 type="text"
                                 name=""
                                 placeholder='Full Name'
-                                className='bg-base-100 pl-3 py-2 rounded-md border-2 border-gray-300 w-full'
+                                className='bg-base-100 pl-3 py-2 rounded-md border border-gray-200 w-full'
                             />
                         </div>
                         <div className='my-3 flex justify-center'>
@@ -45,7 +47,7 @@ const BookingModal = ({ treatment }) => {
                                 type="text"
                                 name=""
                                 placeholder='Phone Number'
-                                className='bg-base-100 pl-3 py-2 rounded-md border-2 border-gray-300 w-full'
+                                className='bg-base-100 pl-3 py-2 rounded-md border border-gray-200 w-full'
                             />
                         </div>
                         <div className='my-3 flex justify-center'>
@@ -53,7 +55,7 @@ const BookingModal = ({ treatment }) => {
                                 type="text"
                                 name=""
                                 placeholder='Email'
-                                className='bg-base-100 pl-3 py-2 rounded-md border-2 border-gray-300 w-full'
+                                className='bg-base-100 pl-3 py-2 rounded-md border border-gray-200 w-full'
                             />
                         </div>
                         <div className='my-3 flex justify-center'>
