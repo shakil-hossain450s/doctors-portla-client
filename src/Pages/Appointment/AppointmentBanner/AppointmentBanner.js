@@ -4,7 +4,6 @@ import { DayPicker } from 'react-day-picker';
 
 const AppointmentBanner = ({ selectedDate, setSelectedDate }) => {
 
-
     return (
         <header>
             <div className="hero banner-image">
