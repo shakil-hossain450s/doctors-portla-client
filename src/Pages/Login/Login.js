@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
 
-    const { register, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit } = useForm();
     const handleLogin = data => {
         console.log(data);
     }
@@ -17,22 +17,32 @@ const Login = () => {
                     <div className='mb-3'>
                         <label htmlFor="email">Email</label>
                         <input
-                            {...register("email")}
+                            {...register("email",
+                                { required: "Email Address is required" }
+                            )}
                             type="email"
                             className='bg-white border w-full  pl-3 py-3 rounded-lg mt-1'
                             name="email"
                             placeholder='Email Address'
                         />
+                        {errors.email && <p className='text-red-600' role="alert">{errors.email?.message}</p>}
                     </div>
                     <div>
                         <label htmlFor="password">Password</label>
                         <input
-                            {...register("password")}
+                            {...register("password",
+                                {
+                                    required: "password is required",
+                                    minLength: {value: 6, message: "Password must be at least 6 characters long"}
+                                },
+                                
+                            )}
                             type="password"
                             className='bg-white border w-full  pl-3 py-3 rounded-lg mt-1'
                             name="password"
                             placeholder='Password'
                         />
+                        {errors.password && <p className='text-red-600' role="alert">{errors.password?.message}</p>}
                     </div>
                     <label
                         className='label ml-2'>
