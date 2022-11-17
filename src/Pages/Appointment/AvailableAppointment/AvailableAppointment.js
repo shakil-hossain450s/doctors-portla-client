@@ -1,17 +1,36 @@
+import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
+import Loading from '../../Shared/Loding/Loading';
 import AppointmentOption from '../AppointmentOption/AppointmentOption';
 import BookingModal from '../BookingModal/BookingModal';
 
 const AvailableAppointment = ({ selectedDate }) => {
-    const [appointmentOptions, setAppointmentOptions] = useState([]);
+    // const [appointmentOptions, setAppointmentOptions] = useState([]);
     const [treatment, setTreatment] = useState(null);
+    const date = format(selectedDate, "PP");
+    console.log(`http://localhost:5000/appointmentOptions?date=${date}`);
 
-    useEffect(() => {
-        fetch('http://localhost:5000/appointmentOptions')
-            .then(res => res.json())
-            .then(data => setAppointmentOptions(data))
-    }, [])
+
+
+    const { data: appointmentOptions = [], refetch, isLoading } = useQuery({
+        queryKey: ['appointmentOptions', date],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/appointmentOptions?date=${date}`);
+            const data = await res.json();
+            return data;
+        }
+    })
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/appointmentOptions')
+    //         .then(res => res.json())
+    //         .then(data => setAppointmentOptions(data))
+    // }, [])
     return (
         <div className='mt-8'>
             <p
@@ -30,9 +49,10 @@ const AvailableAppointment = ({ selectedDate }) => {
             {
                 treatment &&
                 <BookingModal
-                        treatment={treatment}
-                        selectedDate={selectedDate}
-                        setTreatment={setTreatment}
+                    treatment={treatment}
+                    selectedDate={selectedDate}
+                    setTreatment={setTreatment}
+                    refetch={refetch}
                 ></BookingModal>
             }
         </div>
