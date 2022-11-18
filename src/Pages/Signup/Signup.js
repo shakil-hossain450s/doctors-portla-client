@@ -4,14 +4,21 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
+import useToken from '../../hooks/useToken';
 
 const Signup = () => {
-    
+
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUser, providerLogin } = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState('');
     const googleProvider = new GoogleAuthProvider();
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [token] = useToken(createdUserEmail)
     const navigate = useNavigate();
+
+    if (token) {
+        navigate('/');
+    }
 
     const handleSignUp = data => {
         console.log(data)
@@ -19,16 +26,17 @@ const Signup = () => {
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                console.log(user)
+                console.log(user);
+                toast.success("User Signup Success");
                 const userInfo = {
                     displayName: data.name
                 }
                 updateUser(userInfo)
-                    .then(() => { 
-                        saveUser(data.name, data.email)
+                    .then(() => {
+                        saveUser(data.name, data.email);
                     })
                     .catch(err => console.log(err))
-                toast.success("User Signup Success");
+
             })
             .catch(error => {
                 console.log(error.message)
@@ -46,24 +54,23 @@ const Signup = () => {
             .catch(err => {
                 console.log(err);
                 setSignUpError(err.message)
-        })
-
-    }
+            })
+    };
 
     const saveUser = (name, email) => {
         const user = { name, email };
         fetch('http://localhost:5000/users', {
             method: "POST",
             headers: {
-                'content-type': 'application/json'
+                "content-type": "application/json"
             },
             body: JSON.stringify(user)
         })
-            .then(response => response.json())
-        .then(data => {
-            console.log('save user', data);
-            navigate('/');
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log('save user', data)
+                setCreatedUserEmail(email)
+            })
     }
 
     return (
