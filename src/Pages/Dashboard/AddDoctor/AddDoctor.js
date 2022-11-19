@@ -1,11 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const AddDoctor = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const imageHostKey = process.env.REACT_APP_imageBB_key;
+    const navigate = useNavigate();
 
     const { data: specialties, isLoading } = useQuery({
         queryKey: ['specialty'],
@@ -40,6 +43,24 @@ const AddDoctor = () => {
                         specialty: data.specialty,
                         image: imageData.data.url
                     }
+                    // save doctor information to the database
+                    fetch('http://localhost:5000/doctors', {
+                        method: "POST",
+                        headers: {
+                            "content-type": "application/json",
+                            authorization: `bearer ${localStorage.getItem('accessToken')}`
+                        },
+                        body: JSON.stringify(doctor)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.acknowledged) {
+                                toast.success(`${doctor.name} doctor added successfully`);
+                                navigate('/dashboard/manage-doctors');
+                            }
+
+                        })
                 }
             })
     }
