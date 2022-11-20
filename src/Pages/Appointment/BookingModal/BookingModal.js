@@ -7,7 +7,7 @@ const BookingModal = ({ treatment, setTreatment, selectedDate, refetch }) => {
     const { user } = useContext(AuthContext);
     const date = format(selectedDate, "PP");
 
-    const { name: treatmentName, slots } = treatment;
+    const { name: treatmentName, slots, price } = treatment;
 
     const handleBooking = event => {
         event.preventDefault();
@@ -24,7 +24,8 @@ const BookingModal = ({ treatment, setTreatment, selectedDate, refetch }) => {
             patient,
             slot,
             phone,
-            email
+            email,
+            price
         }
 
 
